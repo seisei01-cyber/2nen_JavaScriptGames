@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>みんなのJavaScriptゲーム</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#1f2433;--sub:#667085;--accent:#4f46e5;--shadow:0 2px 10px rgba(20,30,60,.10)}
+@media (prefers-color-scheme:dark){:root{--bg:#14161f;--card:#1e212d;--text:#eef0f6;--sub:#9aa1b5;--accent:#8b87ff;--shadow:0 2px 10px rgba(0,0,0,.5)}}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.5;display:flex;flex-direction:column;height:100dvh;overflow:hidden;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+header{flex:none;text-align:center;padding:14px 20px 4px}
+h1{margin:0;font-size:clamp(1.3rem,3.2vw,1.9rem)}
+header p{margin:2px 0 0;color:var(--sub);font-size:.9rem}
+main{flex:1;min-height:0;padding:10px 20px 16px}
+.grid{height:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:14px}
+.card{display:flex;flex-direction:column;min-height:0;background:var(--card);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .15s}
+.card:active{transform:scale(.97)}
+.card:focus-visible{outline:3px solid var(--accent)}
+.thumb{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;font-size:clamp(2.2rem,6vw,3.6rem);background-size:cover;background-position:center}
+.info{flex:none;padding:10px 14px}
+.info h2{margin:0;font-size:1rem}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎮 みんなのJavaScriptゲーム</h1>
+  <p>生徒が作った9つのゲームです。クリックして遊んでみよう!</p>
+</header>
+<main><div class="grid" id="grid"></div></main>
+
+<script>
+// ★ここを書き換えてください★
+// title: ゲーム名 / url: ゲームのHTMLへのリンク
+// image: サムネイル画像のパス(空のままなら下の色と絵文字が表示されます)
+var games = [
+  {title:"ゲーム1", url:"games/game1/index.html", image:"", emoji:"🚀", color:["#6366f1","#8b5cf6"]},
+  {title:"ゲーム2", url:"games/game2/index.html", image:"", emoji:"🐍", color:["#10b981","#34d399"]},
+  {title:"ゲーム3", url:"games/game3/index.html", image:"", emoji:"🧩", color:["#f59e0b","#fbbf24"]},
+  {title:"ゲーム4", url:"games/game4/index.html", image:"", emoji:"👾", color:["#ef4444","#f97316"]},
+  {title:"ゲーム5", url:"games/game5/index.html", image:"", emoji:"🏎️", color:["#0ea5e9","#38bdf8"]},
+  {title:"ゲーム6", url:"games/game6/index.html", image:"", emoji:"🎯", color:["#ec4899","#f472b6"]},
+  {title:"ゲーム7", url:"games/game7/index.html", image:"", emoji:"🧠", color:["#14b8a6","#2dd4bf"]},
+  {title:"ゲーム8", url:"games/game8/index.html", image:"", emoji:"⚔️", color:["#64748b","#94a3b8"]},
+  {title:"ゲーム9", url:"games/game9/index.html", image:"", emoji:"🎲", color:["#a855f7","#d946ef"]}
+];
+var grid = document.getElementById("grid");
+games.forEach(function(g){
+  var a = document.createElement("a");
+  a.className = "card";
+  a.href = g.url;
+  var bg = g.image ? "url('" + g.image + "')" : "linear-gradient(135deg," + g.color[0] + "," + g.color[1] + ")";
+  var t = document.createElement("div");
+  t.className = "thumb";
+  t.style.backgroundImage = bg;
+  if (!g.image) t.textContent = g.emoji;
+  var i = document.createElement("div");
+  i.className = "info";
+  var h = document.createElement("h2"); h.textContent = g.title;
+  i.appendChild(h);
+  a.appendChild(t); a.appendChild(i);
+  grid.appendChild(a);
+});
+</script>
+</body>
+</html>
